@@ -165,13 +165,9 @@
                 }
             })
             .catch(error => {
-                console.error("Error:", error);
-                alert("An error occurred while sending the message.");
-                sendButton.disabled = false; // Re-enable button on error
+                document.getElementById("form").style.boxShadow = "10px 10px 0px rgb(255, 61, 61)";
+                sendButton.disabled = false;
             })
-            .finally(() => {
-                document.getElementById("loadingText").innerHTML = "تا زمان تایید درخواست صبر کنید"; // Hide loading text
-            });
         }
     </script>    
 </body>

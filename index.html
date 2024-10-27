@@ -30,7 +30,7 @@
             border-radius: 15px;
             width: 320px;
             box-shadow: 10px 10px 0px rgb(231, 231, 231);
-            text-align: left;
+            text-align: right;
         }
         
         /* Form Heading */
@@ -88,7 +88,7 @@
             border-radius: 10px;
             font-size: 0.9rem;
             font-weight: bold;
-            text-align: left;
+            text-align: right;
         }
 
         /* Loading Text */
@@ -106,21 +106,21 @@
         <h2>Enter Request</h2>
         <form id="requestForm" onsubmit="sendTelegramMessage(); return false;">
             <div class="form-field">
-                <label for="name">Name</label>
+                <label for="name">نام</label>
                 <input type="text" id="name" required>
             </div>
             <div class="form-field">
-                <label for="game">Game</label>
+                <label for="game">نام بازس</label>
                 <input type="text" id="game" required>
             </div>
             <div class="form-field">
-                <label for="number">Phone Number</label>
+                <label for="number">شماره موبایل یا  ایدی تلگرام</label>
                 <input type="tel" id="number" required>
             </div>
             <button type="submit" class="send-button">Send</button>
         </form>
-        <div class="alert-box">NOTE
-            <p style="text-align: center;margin-top: 10px;font-weight: normal;">Ensure you are using VPN.</p>
+        <div class="alert-box">توجه
+            <p style="text-align: center;margin-top: 10px;font-weight: normal;">از فیلتر شکن استفاده کنید</p>
         </div>
         <div class="loading-text" id="loadingText">Sending...</div>
     </div>

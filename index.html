@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Request</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Body Styling */
+        body {
+            background-color: #121212;
+            color: #E0E0E0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        
+        /* Container Styling */
+        .form-container {
+            background-color: #1F1F1F;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 320px;
+            box-shadow: 10px 10px 0px rgb(231, 231, 231);
+            text-align: left;
+        }
+        
+        /* Form Heading */
+        .form-container h2 {
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+        
+        /* Input Field Styling */
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+        }
+        
+        .form-field label {
+            margin-bottom: 0.3rem;
+            color: #BB86FC;
+        }
+        
+        .form-field input {
+            padding: 0.75rem;
+            border: none;
+            border-radius: 10px;
+            outline: none;
+            font-size: 1rem;
+            background-color: #333;
+            color: #E0E0E0;
+        }
+        
+        /* Button Styling */
+        .send-button {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            background-color: #0073ff;
+            color: #f6f6f6;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .send-button:hover {
+            background-color: #A06CC9;
+        }
+
+        /* Alert Box Styling */
+        .alert-box {
+            background-color: #ff4b4b86;
+            color: #fff;
+            padding: 0.95rem;
+            margin-top: 1rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        /* Loading Text */
+        .loading-text {
+            display: none;
+            color: #BB86FC;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container" id="form">
+        <h2>Enter Request</h2>
+        <form id="requestForm" onsubmit="sendTelegramMessage(); return false;">
+            <div class="form-field">
+                <label for="name">Name</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-field">
+                <label for="game">Game</label>
+                <input type="text" id="game" required>
+            </div>
+            <div class="form-field">
+                <label for="number">Phone Number</label>
+                <input type="tel" id="number" required>
+            </div>
+            <button type="submit" class="send-button">Send</button>
+        </form>
+        <div class="alert-box">NOTE
+            <p style="text-align: center;margin-top: 10px;font-weight: normal;">Ensure you are using VPN.</p>
+        </div>
+        <div class="loading-text" id="loadingText">Sending...</div>
+    </div>
+
+    <script>
+        function sendTelegramMessage() {
+            const name = document.getElementById("name").value;
+            const game = document.getElementById("game").value;
+            const number = document.getElementById("number").value;
+            const loadingText = document.getElementById("loadingText");
+            const sendButton = document.querySelector(".send-button");
+            
+            const message = `Name: ${name}\nGame: ${game}\nPhone Number: ${number}`;
+            
+            const botToken = "7366310385:AAGdRFyZ2GTmmpVIjSnO_Cw66A9yk-121mc";
+            const chatId = "-1002441409448";
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+    
+            // Disable button and show loading text
+            sendButton.disabled = true;
+            loadingText.style.display = "block";
+    
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    // Change box shadow to green and redirect after 5 seconds
+                    document.getElementById("form").style.boxShadow = "10px 10px 0px rgb(67, 255, 61)";
+                    setTimeout(() => {
+                        window.location.href = "https://t.me/rubybet_2131";
+                    }, 7000); 
+                } else {
+                    // Show error in red box shadow, re-enable button
+                    document.getElementById("form").style.boxShadow = "10px 10px 0px rgb(255, 61, 61)";
+                    sendButton.disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred while sending the message.");
+                sendButton.disabled = false; // Re-enable button on error
+            })
+            .finally(() => {
+                document.getElementById("loadingText").innerHTML = "wait for verify."; // Hide loading text
+            });
+        }
+    </script>    
+</body>
+</html>

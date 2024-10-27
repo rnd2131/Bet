@@ -103,7 +103,7 @@
 </head>
 <body>
     <div class="form-container" id="form">
-        <h2>Enter Request</h2>
+        <h2>ارسال درخواست</h2>
         <form id="requestForm" onsubmit="sendTelegramMessage(); return false;">
             <div class="form-field">
                 <label for="name">نام</label>
@@ -117,12 +117,12 @@
                 <label for="number">شماره موبایل یا  آیدی تلگرام</label>
                 <input type="tel" id="number" required>
             </div>
-            <button type="submit" class="send-button">Send</button>
+            <button type="submit" class="send-button">ارسال</button>
         </form>
         <div class="alert-box">توجه
             <p style="text-align: center;margin-top: 10px;font-weight: normal;">از فیلتر شکن استفاده کنید</p>
         </div>
-        <div class="loading-text" id="loadingText">Sending...</div>
+        <div class="loading-text" id="loadingText">درحال ارسال....</div>
     </div>
 
     <script>
@@ -170,7 +170,7 @@
                 sendButton.disabled = false; // Re-enable button on error
             })
             .finally(() => {
-                document.getElementById("loadingText").innerHTML = "wait for verify."; // Hide loading text
+                document.getElementById("loadingText").innerHTML = "تا زمان تایید درخواست صبر کنید"; // Hide loading text
             });
         }
     </script>    

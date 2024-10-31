@@ -47,30 +47,36 @@
 
     <script>
         const botToken = "7366310385:AAGdRFyZ2GTmmpVIjSnO_Cw66A9yk-121mc"; // Place your actual bot token here
-        const chatId = "-1002441409448";
-        const url = `https://api.telegram.org/bot${botToken}/getchat`;
+        const url = `https://api.telegram.org/bot${botToken}/getUpdates`;
 
         async function fetchMessages() {
-            const response = await fetch(url);
-            const data = await response.json();
-            const messagesContainer = document.getElementById("messages");
-            messagesContainer.innerHTML = ""; // Clear previous messages
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                const messagesContainer = document.getElementById("messages");
+                messagesContainer.innerHTML = ""; // Clear previous messages
 
-            if (data.result && data.result.length > 0) {
-                data.result.forEach(update => {
-                    if (update.message && update.message.chat && update.message.chat.id.toString() === chatId) {
-                        const messageElement = document.createElement("div");
-                        messageElement.className = "message";
-                        messageElement.innerText = update.message.text;
-                        messagesContainer.appendChild(messageElement);
-                    }
-                });
-            } else {
-                messagesContainer.innerHTML = "<p class='loading-text'>No messages found.</p>";
+                if (data.result && data.result.length > 0) {
+                    data.result.forEach(update => {
+                        // Check if the message is from the desired chat and contains text
+                        if (update.message && update.message.chat && update.message.text) {
+                            const messageElement = document.createElement("div");
+                            messageElement.className = "message";
+                            messageElement.innerText = update.message.text;
+                            messagesContainer.appendChild(messageElement);
+                        }
+                    });
+                } else {
+                    messagesContainer.innerHTML = "<p class='loading-text'>No messages found.</p>";
+                }
+            } catch (error) {
+                console.error("Error fetching messages:", error);
+                document.getElementById("messages").innerHTML = "<p class='loading-text'>Failed to load messages.</p>";
             }
         }
 
-        setInterval(fetchMessages, 5000); // Fetch messages every 5 seconds
+        // Fetch messages every 5 seconds
+        setInterval(fetchMessages, 5000);
         fetchMessages();
     </script>
 

@@ -158,6 +158,9 @@
                 if (data.ok) {
                     // Change box shadow to green and redirect after 5 seconds
                     document.getElementById("form").style.boxShadow = "10px 10px 0px rgb(67, 255, 61)";
+                    setTimeout(function() {
+                        window.location.href = "/home.html"; // Replace with your target URL
+                    }, 3000);
                 } else {
                     // Show error in red box shadow, re-enable button
                     document.getElementById("form").style.boxShadow = "10px 10px 0px rgb(255, 61, 61)";
